@@ -1,0 +1,161 @@
+---
+title: "Lab 00"
+subtitle: "RMarkdown and Paths"
+date: "2018-01-24"
+output: html_document
+---
+
+### Overview
+
+Within this lab, we'll be taking a look at how to write RMarkdown in
+addition to the appropriate structure for relative and absolute
+paths. In particular, we'll focus on how to link
+to an image file and read in a sample data set.
+
+#### Markdown Formatting
+
+##### Styling
+
+Write an unordered list of your classes this semester.
+
+1. When writing the short course name (e.g. STAT 385) make it bold. 
+1. Create a link so that when the short course name is clicked it 
+   will take you to the course description in the course explorer. 
+1. Make the long title (Statistics Programming Methods) italic.
+
+If you need help with syntax, go to the "Help" menu and select the 
+_Markdown Quick Reference_ guide. This will open in the **Help** tab on
+the _lower-right_ corner of _RStudio_.
+
+The course explorer is found here: 
+<https://courses.illinois.edu/schedule/2018/spring/STAT>
+
+##### Making _R_ Code Work
+
+The following _R_ code will error when the document is first knit:
+
+```r
+# install.packages("ggplot2")
+ggplot(mtcars, aes(wt, mpg)) +
+     geom_point()
+```
+
+The error is:
+
+```r
+Error in ggplot(mtcars, aes(wt, mpg)) : could not find function "ggplot"
+```
+
+Fix the code chunk by:
+
+1. Installing the `ggplot2` if it isn't already installed
+    - Please uncomment, e.g. delete `#`, to install and then recomment the code, e.g. add `#` back.
+2. Load the package `ggplot2` using the `library()` function.
+3. Make the code chunk _dynamic_.
+
+##### Mathematics
+
+**A helpful resource for looking up mathematical symbols can be found at:
+<https://artofproblemsolving.com/wiki/index.php/LaTeX:Symbols>**
+
+**Welcome to LaTeX**
+
+Write the equation for the [Pythagorean Theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem)
+in both display centered and inline. (Hint `$` vs. `$$`)
+
+**Challenging**
+
+Provide the equation for the [Golden Ratio](https://en.wikipedia.org/wiki/Golden_ratio)
+in display centered. 
+
+_Hints:_
+
+- Fractions are written as: `\frac{numerator}{denominator}`
+- Square roots are given by: `\sqrt{quantity}`
+- If you would like, the symbol for phi is given by: `\phi`
+
+
+**Advanced**
+
+Write the mathematical equation for the quadratic equation in latex.
+
+_Hints:_
+
+- Plus or Minus symbol is given by: `\pm` 
+
+
+
+##### Tables
+
+Recreate the following data table in markdown:
+
+```{r, echo = FALSE}
+health_infection = matrix(c(12, 37, 50, 9), nrow = 2, byrow = TRUE)
+rownames(health_infection) = c("Male", "Female")
+colnames(health_infection) = c("HIV-", "HIV+")
+knitr::kable(health_infection)
+```
+
+
+#### Paths
+
+##### Relative Paths
+
+Relative paths are based on where the current working directory is pointing to.
+They lack any reference to the "root" of the file system.
+
+```md
+![File is in the same directory as RMarkdown document](block-i.png)
+![File is in the img directory underneath where the RMarkdown document is](img/block-i-subfolder.png)
+```
+
+Note, if we allow these markdown snippets to run, we'll get:
+
+![File is in the same directory as RMarkdown document](block-i.png)
+![File is in the img directory underneath where the RMarkdown document is](img/block-i-subfolder.png)
+
+
+The working directory is displayed immediately underneath the _R_ **Console**
+tab in the lower-left corner of _RStudio_.
+
+To figure out the working directory of this document type: 
+
+```{r}
+getwd()
+```
+
+###### Goal:
+
+Write _relative_ paths for:
+
+- `rstudio-logo.png`
+- `r-logo.png`
+- `cloud-data.csv`
+
+##### Absolute or Fixed Paths
+
+Absolute or fixed paths are based on the relation of the file to the
+"root" of the file system. These paths are traditional very long and 
+cause code used on two different computers to break.
+
+```md
+![MacOS Absolute Path](/Users/jjb/rmarkdown-examples/block-i.png)
+![Windows Absolute Path](C:/Users/balamut2/Documents/rmarkdown-examples/block-i.png)
+![Linux Absolute Path](/home/parallel/rmarkdown-examples/block-i.png)
+![RStudio Cloud Absolute Path](/home/rstudio-user/rmarkdown-examples/block-i.png)
+```
+
+Do not use these types of file paths in your _RMarkdown_ file! This will
+cause us to be unable to recreate your output or results document. 
+
+###### Goal:
+
+Write _absolute_ paths for _Windows_, _MacOS_, and _Linux_:
+
+- `rstudio-logo.png`
+- `r-logo.png`
+- `cloud-data.csv`
+
+Hint: Open the file location in your file explorer or type `getwd()` to get
+the base of the directory.
+

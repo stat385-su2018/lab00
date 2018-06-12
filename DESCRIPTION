@@ -1,0 +1,3 @@
+Package: lab0
+Version: 0.1.0
+Depends: ggplot2, rmarkdown 
